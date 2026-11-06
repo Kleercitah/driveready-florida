@@ -11,7 +11,14 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "validate": "vitest run tests/unit/questions.test.js"
+    "validate": "vitest run tests/unit/questions.test.js",
+    "voices:catalog": "node scripts/fish/buildCatalog.js",
+    "voices:status": "node scripts/fish/status.js",
+    "voices:dry-run": "node scripts/fish/estimateCosts.js",
+    "voices:sample": "node scripts/fish/generateSample.js",
+    "voices:generate": "node scripts/fish/generateAudio.js",
+    "voices:validate": "node scripts/fish/validateAudio.js",
+    "voices:all": "node scripts/fish/generateAudio.js --all"
   },
   "dependencies": {
     "lucide": "^0.454.0"

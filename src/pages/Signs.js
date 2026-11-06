@@ -4,6 +4,9 @@ import { signs, signCategories } from '../data/signs/index.js';
 import { shuffle } from '../engines/quizEngine.js';
 import { icon } from '../components/common/icons.js';
 import { badge, button, card, pageHeader } from '../components/common/ui.js';
+import { renderListenControl } from '../components/audio/ListenButton.js';
+import { AUDIO_KINDS } from '../audio/audioManifest.js';
+import { getAudioLanguage } from '../audio/audioController.js';
 import { announce } from '../components/common/toast.js';
 
 const RECOGNITION_ROUNDS = 10;
@@ -42,6 +45,7 @@ function signById(id) {
 
 function renderGallery(language, t) {
   const filtered = activeFilter === 'all' ? signs : signs.filter((s) => s.category === activeFilter);
+  const audioLanguage = getAudioLanguage();
 
   const chips = [
     `<button class="chip ${activeFilter === 'all' ? 'is-active' : ''}" type="button"
@@ -74,6 +78,13 @@ function renderGallery(language, t) {
             <p class="sign-card__meta">${icon('map-pin', { size: 13 })} ${escapeHtml(
               pickLocalized(sign.usage, language)
             )}</p>
+            ${renderListenControl({
+              t,
+              kind: AUDIO_KINDS.SIGN,
+              contentId: sign.id,
+              title: pickLocalized(sign.name, language),
+              language: audioLanguage
+            })}
           </div>
         </article>
       `

@@ -1,0 +1,343 @@
+/* =========================================================================
+   Audio — narración bilingüe (Midnight Study)
+   Controles "Escuchar" + selector compacto EN | ES + reproductor global.
+   El idioma del audio nunca altera el idioma de la página.
+   ========================================================================= */
+
+/* --------------------------------------------------- Botón "Escuchar" + EN|ES */
+.listen-row {
+  margin-bottom: var(--space-6);
+}
+
+.listen {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.listen__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 38px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.listen__btn:hover:not(:disabled) {
+  background: var(--surface-raised);
+  border-color: var(--border-strong);
+}
+
+.listen__btn.is-playing {
+  border-color: var(--color-lavender);
+  color: var(--color-lavender);
+}
+
+.listen__btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.listen__icon {
+  display: inline-flex;
+}
+
+.listen.is-unavailable .listen__label {
+  opacity: 0.7;
+}
+
+/* El control de escucha dentro del título de una sección queda alineado a la derecha. */
+.lesson-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.lesson-section__head .lesson-section__title {
+  margin-bottom: 0;
+}
+
+.sign-card__body .listen {
+  margin-top: var(--space-1);
+}
+
+/* --------------------------------------------------- Selector de idioma EN|ES */
+.audio-lang {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 2px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--surface-muted);
+}
+
+.audio-lang__btn {
+  min-width: 34px;
+  padding: 4px 9px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.audio-lang__btn:hover:not(:disabled) {
+  color: var(--text-primary);
+}
+
+.audio-lang__btn.is-active {
+  background: var(--color-lavender);
+  color: #101827;
+}
+
+.audio-lang__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------- Reproductor global (dock) */
+.audio-dock {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + var(--space-2));
+  z-index: var(--z-header);
+  width: min(var(--content-max), calc(100% - var(--space-6)));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.audio-dock[hidden] {
+  display: none;
+}
+
+.audio-dock__head {
+  display: flex;
+  flex: 1 1 160px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.audio-dock__meta {
+  min-width: 0;
+}
+
+.audio-dock__close {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: -6px -6px 0 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.audio-dock__close:hover {
+  background: var(--surface-muted);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+.audio-dock__close:focus-visible {
+  outline: 2px solid var(--color-lavender);
+  outline-offset: 2px;
+}
+
+.audio-dock__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.audio-dock__title {
+  margin: 2px 0 0;
+  color: var(--text-primary);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.audio-dock__body {
+  display: flex;
+  flex: 2 1 260px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.audio-dock__controls {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: var(--space-2);
+}
+
+.audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.audio-btn:hover {
+  background: var(--surface-muted);
+  border-color: var(--border-strong);
+}
+
+.audio-btn--primary {
+  background: var(--color-lavender);
+  border-color: var(--color-lavender);
+  color: #101827;
+}
+
+.audio-btn--primary:hover {
+  background: #c3cdfb;
+  border-color: #c3cdfb;
+}
+
+.audio-dock__progress {
+  flex: 1 1 auto;
+  min-width: 80px;
+  cursor: pointer;
+}
+
+.audio-dock__bar {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.audio-dock__fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-lavender);
+  transition: width var(--transition-fast);
+}
+
+.audio-dock__time {
+  flex: 0 0 auto;
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.audio-dock__options {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.audio-speed {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 2px;
+  gap: 2px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--surface-muted);
+}
+
+.audio-speed__btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.audio-speed__btn:hover {
+  color: var(--text-primary);
+}
+
+.audio-speed__btn.is-active {
+  background: var(--color-lavender);
+  color: #101827;
+}
+
+/* Reserva de espacio cuando el dock está visible. */
+@media (max-width: 899px) {
+  body.has-audio-dock .app-body {
+    padding-bottom: calc(var(--bottom-nav-height) + 96px + env(safe-area-inset-bottom) + var(--space-8));
+  }
+}
+
+@media (min-width: 900px) {
+  .audio-dock {
+    bottom: var(--space-4);
+  }
+
+  body.has-audio-dock .app-body {
+    padding-bottom: 96px;
+  }
+}
+
+@media (max-width: 640px) {
+  .audio-dock {
+    gap: var(--space-2) var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .audio-dock__head {
+    flex-basis: 100%;
+  }
+
+  .audio-dock__body {
+    flex-basis: 100%;
+  }
+}

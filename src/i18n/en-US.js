@@ -400,6 +400,26 @@ export default {
     text: 'The page you are looking for does not exist or may have moved.',
     backHome: 'Back to Dashboard'
   },
+  // Reproductor de narración. El idioma del audio es independiente del idioma
+  // de la interfaz: cambiar EN/ES nunca cambia la página.
+  audio: {
+    listen: 'Listen',
+    pause: 'Pause',
+    resume: 'Resume',
+    stop: 'Stop',
+    close: 'Close narration',
+    narration: 'Narration',
+    playerLabel: 'Audio player',
+    playPause: 'Play or pause the narration',
+    progress: 'Narration progress',
+    speed: 'Playback speed',
+    audioLanguage: 'Audio language',
+    listenLesson: 'Listen to this lesson',
+    listenSection: 'Listen to this section',
+    listenSign: 'Listen to this sign',
+    unavailable: 'Audio not available yet',
+    note: 'Changes only the narration language, not the page.'
+  },
   a11y: {
     correctAnswerAnnounce: 'Correct answer.',
     incorrectAnswerAnnounce: 'Incorrect answer.',

@@ -2,6 +2,8 @@ import { icon } from '../common/icons.js';
 import { escapeHtml } from '../../utils/formatting.js';
 import { buildHref } from '../../config/routes.js';
 import { appConfig } from '../../config/appConfig.js';
+import { renderAudioDock } from '../audio/AudioPlayer.js';
+import { getAudioLanguage } from '../../audio/audioController.js';
 
 /** Elementos de navegación principal. */
 export const NAV_ITEMS = [
@@ -127,6 +129,7 @@ export function renderShell({ t, activeRoute, language, pageHtml }) {
       </main>
     </div>
     ${renderBottomNav({ t, activeRoute })}
+    ${renderAudioDock({ t, language: getAudioLanguage() })}
     ${renderDrawer({ t, activeRoute })}
   `;
 }

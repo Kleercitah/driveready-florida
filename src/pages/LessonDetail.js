@@ -8,6 +8,9 @@ import { setLessonCompleted } from '../services/progressService.js';
 import { escapeHtml } from '../utils/formatting.js';
 import { icon } from '../components/common/icons.js';
 import { alert, badge, breadcrumbs, button, card, pageHeader } from '../components/common/ui.js';
+import { renderListenControl } from '../components/audio/ListenButton.js';
+import { AUDIO_KINDS } from '../audio/audioManifest.js';
+import { getAudioLanguage } from '../audio/audioController.js';
 import { showToast, announce } from '../components/common/toast.js';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
@@ -75,6 +78,7 @@ export default {
     const index = lessons.findIndex((l) => l.id === lesson.id);
     const prev = lessons[index - 1] ?? null;
     const next = lessons[index + 1] ?? null;
+    const audioLanguage = getAudioLanguage();
 
     const toc = lesson.sections
       .map(
@@ -89,7 +93,17 @@ export default {
       .map(
         (section) => `
           <article class="lesson-section" id="section-${section.id}">
-            <h2 class="lesson-section__title">${escapeHtml(pickLocalized(section.title, language))}</h2>
+            <div class="lesson-section__head">
+              <h2 class="lesson-section__title">${escapeHtml(pickLocalized(section.title, language))}</h2>
+              ${renderListenControl({
+                t,
+                kind: AUDIO_KINDS.LESSON_SECTION,
+                contentId: lesson.id,
+                sectionId: section.id,
+                title: pickLocalized(section.title, language),
+                language: audioLanguage
+              })}
+            </div>
             <div class="lesson-prose">${renderBody(pickLocalized(section.body, language))}</div>
           </article>
         `
@@ -182,6 +196,16 @@ export default {
             ${completed ? badge({ label: t('learn.completed'), variant: 'success', iconName: 'check' }) : ''}
           `
         })}
+
+        <div class="listen-row">
+          ${renderListenControl({
+            t,
+            kind: AUDIO_KINDS.LESSON_INTRO,
+            contentId: lesson.id,
+            title: pickLocalized(lesson.title, language),
+            language: audioLanguage
+          })}
+        </div>
 
         <div class="lesson-layout">
           <div>

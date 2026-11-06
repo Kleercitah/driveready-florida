@@ -15,20 +15,23 @@ No se declara ninguna prueba como superada si no fue ejecutada en este entorno.
 ### `npm run test`
 
 ```
-✓ tests/unit/storage.test.js        (8 tests)
-✓ tests/unit/i18n.test.js           (7 tests)
-✓ tests/unit/questions.test.js      (8 tests)
-✓ tests/unit/engines.test.js        (14 tests)
-✓ tests/unit/translation.test.js    (13 tests)
-✓ tests/integration/progress.test.js (10 tests)
-✓ tests/integration/routing.test.js  (7 tests)
+✓ tests/unit/storage.test.js          (8 tests)
+✓ tests/unit/i18n.test.js             (7 tests)
+✓ tests/unit/questions.test.js        (8 tests)
+✓ tests/unit/engines.test.js          (14 tests)
+✓ tests/unit/translation.test.js      (13 tests)
+✓ tests/integration/progress.test.js  (10 tests)
+✓ tests/integration/routing.test.js   (7 tests)
+✓ tests/unit/audio-generation.test.js (18 tests)
+✓ tests/unit/audio-player.test.js     (16 tests)
+✓ tests/integration/audio-ui.test.js  (11 tests)
 
- Test Files  7 passed (7)
-      Tests  67 passed (67)
-   Duration  ~6.59s
+ Test Files  10 passed (10)
+      Tests  112 passed (112)
+   Duration  ~5.66s
 ```
 
-**Resultado: 67/67 pruebas superadas (exit code 0).**
+**Resultado: 112/112 pruebas superadas (exit code 0).**
 
 ### `npm run build`
 
@@ -36,8 +39,8 @@ No se declara ninguna prueba como superada si no fue ejecutada en este entorno.
 vite v5.4.21 building for production...
 ✓ 1603 modules transformed.
 dist/index.html                   1.51 kB │ gzip:   0.72 kB
-dist/assets/index-DZ778Ggc.css   41.53 kB │ gzip:   7.59 kB
-dist/assets/index-CaJe1rKn.js   586.29 kB │ gzip: 163.81 kB
+dist/assets/index-C9MzZEaG.css   46.88 kB │ gzip:   8.38 kB
+dist/assets/index-D_P6bFjE.js   599.83 kB │ gzip: 166.62 kB
 ✓ built in ~5.86s
 ```
 
@@ -46,7 +49,13 @@ Nota: Vite reporta un aviso (*warning*) porque el bundle JS supera los 500 kB. E
 
 ---
 
-## 2. Detalle de pruebas (T01–T54 + TR01–TR13)
+## 2. Detalle de pruebas (T01–T54 + TR01–TR13 + sistema de audio T01–T31)
+
+> **Nota sobre la numeración:** las secciones 2.1–2.7 usan los identificadores
+> `T01`–`T54` del brief original. La sección **2.8** documenta el sistema de
+> narración y reutiliza los identificadores `T01`–`T31` de **su propia especificación**;
+> son bancos de pruebas independientes. El total real es **109 pruebas**. Los
+> identificadores de las pruebas están tomados literalmente del nombre de cada `it(...)`.
 
 ### `tests/unit/questions.test.js` — Integridad estructural del banco (T01–T08)
 
@@ -159,13 +168,87 @@ Motor del simulacro:
 | TR12 | La preferencia de práctica no sobrescribe el idioma de la interfaz | PASS |
 | TR13 | El simulacro permanece siempre en inglés | PASS |
 
+### 2.8 Sistema de narración bilingüe — lote nuevo (45 pruebas)
+
+Estas pruebas se ejecutan **sin credenciales y sin red real**: la generación usa un
+`fetch` inyectado y un manifiesto en memoria, y el reproductor usa un elemento de audio
+falso. **No se generó ni descargó ningún MP3 real.**
+
+#### `tests/unit/audio-generation.test.js` — Generación (18 pruebas)
+
+| Id | Prueba | Estado |
+|----|--------|--------|
+| T01 | El catálogo detecta todas las lecciones | PASS |
+| T02 | El catálogo detecta todas las señales | PASS |
+| T03 | Los idiomas tienen configuraciones independientes | PASS |
+| T04 | Los audios ingleses usan el Reference ID inglés | PASS |
+| T05 | Los audios españoles usan el Reference ID español | PASS |
+| T06 | Cambiar un Reference ID invalida la caché correspondiente | PASS |
+| T07 | Cambiar la voz inglesa no invalida los audios españoles | PASS |
+| T08 | Cambiar la voz española no invalida los audios ingleses | PASS |
+| — | El hash depende de texto, idioma, modelo y Reference ID | PASS |
+| — | El catálogo es completo y estable en tamaño | PASS |
+| — | Normaliza, une y mide texto narrable | PASS |
+| — | `createPlan` selecciona, respeta límites y omite lo ya listo | PASS |
+| — | `estimatePlan` calcula bytes y declara el costo desconocido sin tarifa | PASS |
+| T09 | El dry-run nunca consume API | PASS |
+| T10 | Se respetan los límites de generación | PASS |
+| T11 | Los errores de la API se manejan correctamente | PASS |
+| T12 | El generador no guarda respuestas corruptas como MP3 | PASS |
+| T13 | Los audios generados se registran correctamente en el manifiesto | PASS |
+
+#### `tests/unit/audio-player.test.js` — Reproductor (16 pruebas)
+
+| Id | Prueba | Estado |
+|----|--------|--------|
+| T14 | Los archivos inexistentes o pendientes no aparecen disponibles | PASS |
+| — | El par de idiomas informa qué narraciones existen | PASS |
+| T15 | Play reproduce la narración | PASS |
+| T16 | Pause pausa la narración | PASS |
+| T17 | Stop detiene y vuelve al inicio | PASS |
+| — | Toggle reanuda tras pausar y pausa tras reproducir | PASS |
+| — | Cerrar (dismiss) detiene el audio y oculta el reproductor (conserva preferencias) | PASS |
+| T18 | El selector EN reproduce el archivo inglés | PASS |
+| T19 | El selector ES reproduce el archivo español | PASS |
+| T20 | Cambiar de idioma reemplaza la reproducción anterior | PASS |
+| T21 | Nunca se reproducen dos audios simultáneamente | PASS |
+| T22 | Cambiar el idioma del audio no altera el idioma visual | PASS |
+| T23 | Cambiar el idioma del audio no altera el progreso | PASS |
+| T24 | Se conserva la velocidad al cambiar de idioma | PASS |
+| T25 | La preferencia de idioma y velocidad persiste | PASS |
+| T31 | Las rutas respetan el subdirectorio del despliegue | PASS |
+
+#### `tests/integration/audio-ui.test.js` — Interfaz y entrega (11 pruebas)
+
+| Id | Prueba | Estado |
+|----|--------|--------|
+| T26 | Si falta el audio español, la interfaz lo indica | PASS |
+| — | Sin ninguna narración, el control queda inactivo sin romper la página | PASS |
+| — | El control "Escuchar" reproduce y muestra el dock global | PASS |
+| — | El botón de cerrar del reproductor es accesible (`aria-label` y `title`) | PASS |
+| — | La narración sigue controlable al cambiar de página (señales → simulacro) | PASS |
+| T27 | El reproductor está preparado para móvil y escritorio | PASS |
+| — | El selector EN\|ES marca la opción activa | PASS |
+| T28 | No se exponen secretos en el código ni en `dist` | PASS |
+| T29 | `npm run build` está configurado | PASS |
+| T30 | `npm run test` está configurado | PASS |
+| — | Los comandos npm de narración existen | PASS |
+
+**Cobertura del metalenguaje de la especificación:** T01–T31 cubiertos o superados.
+T28 verifica además que ni `src/` ni `dist/` contienen `FISH_API_KEY`, los
+Reference IDs, `api.fish.audio` ni tokens `Bearer`, y que `.env` está ignorado.
+
+**Alcance real:** estas pruebas validan el **comportamiento del sistema con mocks**.
+No existe ningún audio generado con Fish Audio todavía, por lo que **no** se declara
+verificado el resultado sonoro real. Ver la sección 5.
+
 ---
 
 ## 3. Pruebas E2E (Playwright)
 
 **Estado: NO EJECUTADAS.**
 
-Playwright figura como dependencia opcional según el brief ("si es viable"). En este entorno **no se ejecutó ninguna prueba E2E de Playwright**, por lo que **no se declara ningún resultado E2E como superado**. La verificación funcional se cubrió mediante pruebas unitarias y de integración con Vitest + jsdom (T01–T54 + TR01–TR13).
+Playwright figura como dependencia opcional según el brief ("si es viable"). En este entorno **no se ejecutó ninguna prueba E2E de Playwright**, por lo que **no se declara ningún resultado E2E como superado**. La verificación funcional se cubrió mediante pruebas unitarias y de integración con Vitest + jsdom (T01–T54 + TR01–TR13 + el lote del sistema de audio, 109 pruebas en total).
 
 ---
 
@@ -182,3 +265,4 @@ Playwright figura como dependencia opcional según el brief ("si es viable"). En
 - Estas pruebas validan **estructura, lógica y comportamiento de la aplicación**. **No** constituyen verificación legal del contenido educativo frente a la normativa vigente de Florida.
 - No se ejecutaron pruebas en navegadores reales ni E2E automatizado.
 - El aviso de tamaño de bundle de Vite no se considera un fallo funcional.
+- **Sistema de audio:** verificado **solo con mocks** (manifiesto simulado, elemento de audio falso y `fetch` inyectado). **No se ha generado ni reproducido ningún MP3 real con Fish Audio**, porque no se dispone de credenciales en este entorno. Las pruebas confirman la lógica, el control de gasto y la interfaz, pero **no** la calidad sonora ni la aceptación real de la API. Ver [FISH_AUDIO_SETUP.md](./FISH_AUDIO_SETUP.md).

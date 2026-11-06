@@ -17,7 +17,11 @@ export function createDefaultState() {
       showMotivational: true,
       reducedMotion: 'system',
       timerEnabled: false,
-      timerMinutes: appConfig.practiceTimerDefaultMinutes
+      timerMinutes: appConfig.practiceTimerDefaultMinutes,
+      // Preferencias del reproductor de narración. Son independientes del idioma
+      // de la interfaz y del idioma de las preguntas de práctica.
+      audioLanguage: 'en',
+      audioSpeed: 1
     },
     welcome: {
       seen: false
@@ -109,6 +113,13 @@ export function normalizeState(input) {
   if (!['en', 'es'].includes(merged.preferences.practiceQuestionLanguage)) {
     merged.preferences.practiceQuestionLanguage = 'en';
   }
+
+  // Preferencias de narración: idioma ('en' | 'es') y velocidad válida.
+  if (!['en', 'es'].includes(merged.preferences.audioLanguage)) {
+    merged.preferences.audioLanguage = 'en';
+  }
+  const speed = Number(merged.preferences.audioSpeed);
+  merged.preferences.audioSpeed = [0.75, 1, 1.25, 1.5].includes(speed) ? speed : 1;
 
   if (!Array.isArray(merged.lessons.completed)) merged.lessons.completed = [];
   if (!Array.isArray(merged.favorites)) merged.favorites = [];

@@ -4,6 +4,7 @@ import { matchRoute, buildHref } from './config/routes.js';
 import { t, setLanguage, getLanguage } from './i18n/index.js';
 import { renderShell } from './components/layout/appShell.js';
 import { renderWelcomeOverlay, mountWelcomeOverlay } from './components/layout/welcomeOverlay.js';
+import { mountAudioUI } from './components/audio/AudioPlayer.js';
 import { getState, subscribe } from './services/storage.js';
 import {
   updatePreferences,
@@ -167,6 +168,8 @@ export function render({ navigation = true } = {}) {
   }
 
   wireShellEvents(appRoot);
+  // Reproductor global + controles "Escuchar" de la página actual.
+  mountAudioUI(appRoot, ctx);
   updateDocumentTitle(route, params);
 
   // Gestión de foco: al cambiar de pantalla, enfocamos el contenido principal.
