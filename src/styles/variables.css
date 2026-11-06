@@ -1,0 +1,138 @@
+/* =========================================================================
+   DriveReady Florida — Variables de diseño
+   Tema: "Midnight Study" (modo oscuro permanente).
+   Los NOMBRES de los tokens se conservan respecto a la versión anterior para
+   no romper ningún componente; solo cambian sus valores.
+   ========================================================================= */
+
+:root {
+  color-scheme: dark;
+
+  /* Marca */
+  --color-midnight: #101827;
+  --color-ocean: #7E97DA;
+  --color-lavender: #a9b8f7;
+  --color-snow: #e6eaf2;
+  --color-rose: #f0a9bb;
+
+  /* Derivados de marca (ajustados al fondo oscuro) */
+  --color-ocean-600: #26365A;
+  --color-ocean-400: #a9b8f7;
+  --color-lavender-200: #33456b;
+  --color-lavender-100: #1f2c44;
+  --color-rose-100: #3a2830;
+
+  /* Semánticos accesibles sobre fondo oscuro */
+  --color-success: #5cc98d;
+  --color-success-bg: #14291f;
+  --color-error: #f0939c;
+  --color-error-bg: #2c1b1e;
+  --color-warning: #e3b341;
+  --color-warning-bg: #2a2312;
+  --color-info: #a9b8f7;
+  --color-info-bg: #1d2a44;
+
+  /* Superficies */
+  --surface-page: #101827;       /* fondo principal */
+  --surface-nav: #141f30;        /* fondo de navegación */
+  --surface-card: #192538;       /* superficies secundarias y tarjetas */
+  --surface-muted: #141f30;      /* pistas, cabeceras de tabla, insets */
+  --surface-raised: #233249;     /* tarjetas elevadas */
+  --surface-inverse: #e6eaf2;    /* superficies claras inversas */
+
+  /* Texto */
+  --text-primary: #e6eaf2;
+  --text-secondary: #b4c2d8;
+  --text-muted: #8a9bb3;
+  --text-inverse: #e6eaf2;
+  --text-on-dark-muted: #b9c3d9;
+
+  /* Bordes */
+  --border-subtle: #26344c;      /* separadores decorativos */
+  --border-default: #5e6e90;     /* bordes de controles (>=3:1 WCAG) */
+  --border-strong: #7b89a8;      /* hover / énfasis */
+  --border-focus: #a9b8f7;
+
+  /* Sombras (más profundas y discretas en oscuro) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.32);
+  --shadow-focus: 0 0 0 3px rgba(169, 184, 247, 0.35);
+
+  /* Tipografía */
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+  --fs-4xl: 2.75rem;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.6;
+  --lh-relaxed: 1.75;
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 999px;
+
+  /* Dimensiones */
+  --sidebar-width: 240px;
+  --header-height: 60px;
+  --bottom-nav-height: 62px;
+  --content-max: 1120px;
+
+  /* Transiciones */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* z-index */
+  --z-header: 40;
+  --z-drawer: 60;
+  --z-modal: 70;
+  --z-toast: 80;
+}
+
+/* Reducción de movimiento: sistema o preferencia explícita del usuario. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}
+
+:root[data-reduced-motion='true'] {
+  --transition-fast: 0ms;
+  --transition-base: 0ms;
+  --transition-slow: 0ms;
+}
+
+:root[data-reduced-motion='true'] * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}

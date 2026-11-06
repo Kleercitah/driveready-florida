@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DriveReady">
+  <defs>
+    <linearGradient id="drBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101827" />
+      <stop offset="100%" stop-color="#1D3557" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#drBg)" />
+  <path d="M12 46 L30 18 L34 18 L52 46 L44 46 L36 32 L28 46 Z" fill="#A9B8F7" />
+  <circle cx="32" cy="42" r="3" fill="#F0A9BB" />
+</svg>

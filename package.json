@@ -1,0 +1,24 @@
+{
+  "name": "driveready-florida",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DriveReady Florida — plataforma de estudio para el Florida Class E Knowledge Exam.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "validate": "vitest run tests/unit/questions.test.js"
+  },
+  "dependencies": {
+    "lucide": "^0.454.0"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  }
+}

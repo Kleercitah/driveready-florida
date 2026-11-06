@@ -1,0 +1,63 @@
+{
+  "verifiedOn": "2026-11-05",
+  "note": "Fuentes oficiales de referencia utilizadas para redactar y revisar el contenido educativo de DriveReady Florida. DriveReady no está afiliado al FLHSMV.",
+  "sources": [
+    {
+      "id": "fl-handbook",
+      "shortLabel": "Florida Driver License Handbook",
+      "publisher": "Florida Department of Highway Safety and Motor Vehicles (FLHSMV)",
+      "url": "https://www.flhsmv.gov/pdf/handbooks/englishdriverhandbook.pdf",
+      "portalUrl": "https://www.flhsmv.gov/",
+      "edition": "Current edition published by FLHSMV",
+      "type": "handbook"
+    },
+    {
+      "id": "fl-handbook-spanish",
+      "shortLabel": "Manual del Conductor de Florida",
+      "publisher": "FLHSMV",
+      "url": "https://www.flhsmv.gov/pdf/handbooks/spanishdriverhandbook.pdf",
+      "edition": "Current edition published by FLHSMV",
+      "type": "handbook"
+    },
+    {
+      "id": "fl-statutes-316",
+      "shortLabel": "Florida Statutes, Chapter 316 (State Uniform Traffic Control)",
+      "publisher": "The Florida Legislature",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0300-0399/0316/0316.html",
+      "edition": "Current Florida Statutes",
+      "type": "statute"
+    },
+    {
+      "id": "fl-statutes-322",
+      "shortLabel": "Florida Statutes, Chapter 322 (Driver Licenses)",
+      "publisher": "The Florida Legislature",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0300-0399/0322/0322.html",
+      "edition": "Current Florida Statutes",
+      "type": "statute"
+    },
+    {
+      "id": "fl-statutes-893",
+      "shortLabel": "Florida Statutes, Chapter 893 (Drug Abuse Prevention and Control)",
+      "publisher": "The Florida Legislature",
+      "url": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0800-0899/0893/0893.html",
+      "edition": "Current Florida Statutes",
+      "type": "statute"
+    },
+    {
+      "id": "muta-manual",
+      "shortLabel": "Manual on Uniform Traffic Control Devices (MUTCD)",
+      "publisher": "U.S. Department of Transportation, Federal Highway Administration",
+      "url": "https://mutcd.fhwa.dot.gov/",
+      "edition": "Current edition",
+      "type": "standard"
+    },
+    {
+      "id": "nhtsa-impaired",
+      "shortLabel": "NHTSA — Drunk and Drugged Driving",
+      "publisher": "National Highway Traffic Safety Administration",
+      "url": "https://www.nhtsa.gov/risky-driving/drunk-driving",
+      "edition": "Current guidance",
+      "type": "agency"
+    }
+  ]
+}
