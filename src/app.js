@@ -151,6 +151,11 @@ export function render({ navigation = true } = {}) {
     pageHtml
   });
 
+  // El drawer vive dentro de #app y se destruye al re-renderizar. Si el usuario
+  // navega desde el menú lateral, hay que soltar el bloqueo de scroll del body
+  // (`overflow: hidden`); de lo contrario la página quedaría sin poder desplazarse.
+  document.body.classList.remove('has-drawer-open');
+
   // Montaje de la página (eventos).
   const main = appRoot.querySelector('#main-region');
   if (main && typeof pageModule.mount === 'function') {
